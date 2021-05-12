@@ -1,5 +1,0 @@
----
-- hosts: myhost
-become: yes
-roles:
-- roles
