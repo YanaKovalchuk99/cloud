@@ -15,8 +15,7 @@
       - apache2 
       - libapache2-mod-php 
       - mysql-server 
-      - php-curl 
-      #- php-mcrypt 
+      - php-curl  
       - php-gd 
       - php-mysql
       - ufw 
@@ -68,18 +67,6 @@
 - name: Anchor - Clean apache's index.html
   file: path=/var/www/html/index.html state=absent
       
-#- name: Anchor - Get anchor
-#  unarchive: src=~/anchor-cms-0.12.7-bundled.zip dest=/var/www/html remote_src=no
-  
-#- name: Get anchor
-#  get_url: url=https://github.com/SaxinaOV/anchor-ansible/blob/main/anchor-cms-0.12.7-bundled.zip dest=/tmp/anchor.zip
-#  force: yes
-
-#- name: Uncompress anchor
-#  unarchive: src=/tmp/anchor.zip dest=/tmp copy=no creates=/tmp/anchor/index.php
-
-#- name: Copy files into /var/www/html/
-#  command: cp -a /tmp/anchor/. /var/www/html/ creates=/var/www/html/index.php
 
 - name: Anchor - Get anchor
   unarchive: src=https://github.com/anchorcms/anchor-cms/releases/download/{{ anchor_version }}/anchor-cms-{{ anchor_version }}-bundled.zip dest=/var/www/html remote_src=yes
@@ -91,9 +78,6 @@
 - name: Anchor - Change permissions and ownership of blog
   file: path=/var/www/html/anchor-cms state=directory recurse=yes owner=www-data group=www-data
 
-#- name: Anchor - Allow .htaccess in apache2
-#  lineinfile: dest=/etc/apache2/apache2.conf regexp='^\tAllowOverride None$' insertbefore='^\s*AllowOverride None$' line='<Directory "/var/www/html">\nAllowOverride All\n</Directory>'
-#  notify: Restart apache
 
 - name: Anchor - Set apache up with correct Document Root
   lineinfile: dest=/etc/apache2/sites-available/000-default.conf regexp='^\sDocumentRoot /var/www/html$' line='DocumentRoot /var/www/html/anchor-cms'
@@ -107,7 +91,3 @@
   copy: src=htaccess dest=/var/www/html/anchor-cms/.htaccess owner=root group=root mode=0644
   notify: Restart apache
 
-#- name: Delete install directory
-#  file:
-#    state: absent
-#    path: /var/www/html/anchor-cms/install
