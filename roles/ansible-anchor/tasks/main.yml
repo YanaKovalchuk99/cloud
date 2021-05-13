@@ -68,8 +68,8 @@
 - name: Anchor - Clean apache's index.html
   file: path=/var/www/html/index.html state=absent
       
-- name: Anchor - Get anchor
-  unarchive: src=~/anchor-cms-0.12.7-bundled.zip dest=/var/www/html remote_src=no
+#- name: Anchor - Get anchor
+#  unarchive: src=~/anchor-cms-0.12.7-bundled.zip dest=/var/www/html remote_src=no
   
 #- name: Get anchor
 #  get_url: url=https://github.com/SaxinaOV/anchor-ansible/blob/main/anchor-cms-0.12.7-bundled.zip dest=/tmp/anchor.zip
@@ -81,8 +81,8 @@
 #- name: Copy files into /var/www/html/
 #  command: cp -a /tmp/anchor/. /var/www/html/ creates=/var/www/html/index.php
 
-#- name: Anchor - Get anchor
-#  unarchive: src=https://github.com/anchorcms/anchor-cms/releases/download/{{ anchor_version }}/anchor-cms-{{ anchor_version }}-bundled.zip dest=/var/www/html remote_src=yes
+- name: Anchor - Get anchor
+  unarchive: src=https://github.com/anchorcms/anchor-cms/releases/download/{{ anchor_version }}/anchor-cms-{{ anchor_version }}-bundled.zip dest=/var/www/html remote_src=yes
 
 
 - name: Anchor - Clean the archive
